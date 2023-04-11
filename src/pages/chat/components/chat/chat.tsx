@@ -39,11 +39,12 @@ const Chat: React.FC<{}> = ({}) => {
     });
 
     const responseData: IPromptResponse = await response.json();
+    console.log("responseData: ", responseData);
 
     // Update the messages state with the assistant message
     const assistantMessage: IMessage = {
       from: "Assistant",
-      message: responseData.choices[0].message.content,
+      message: responseData?.choices[0]?.message?.content,
       id: uuidv4(),
     };
     setMessages(messages => [...messages, assistantMessage]);

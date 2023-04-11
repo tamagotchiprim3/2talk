@@ -12,18 +12,18 @@ const ChatMessages: React.FC<Props> = ({ messages }) => {
             mssg.from === "Me" ? (
               <div
                 key={mssg.id}
-                className="self-end bg-teal-500 p-3 my-1 rounded-lg w-min max-w-md"
+                className="self-end bg-teal-500 p-3 my-1 rounded-lg max-w-md break-words "
               >
-                <div className="text-teal-100 font-bold">{mssg.from}</div>
-                <div className="break-words">{mssg.message}</div>
+                <div className="text-teal-100 font-bold text-right">{mssg.from}</div>
+                <div>{mssg.message}</div>
               </div>
             ) : (
               <div
                 key={mssg.id}
-                className="self-start bg-teal-500 p-3 my-1 rounded-lg w-min max-w-md"
+                className="self-start bg-teal-500 p-3 my-1 rounded-lg max-w-md break-words "
               >
                 <div className="text-teal-100 font-bold">{mssg.from}</div>
-                <div className="break-words">{mssg.message}</div>
+                <div>{mssg.message}</div>
               </div>
             )
           )
