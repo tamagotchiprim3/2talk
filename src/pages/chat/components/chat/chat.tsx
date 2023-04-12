@@ -29,28 +29,33 @@ const Chat: React.FC<{}> = ({}) => {
         },
       ],
     };
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        Authorization: `Bearer ${API_KEY}`,
-      },
-      body: JSON.stringify(requestBody),
-    });
+    let responseData: IPromptResponse | null = null;
+    try {
+      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Bearer ${API_KEY}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
+      responseData = await res.json();
+    } catch (error) {
+      console.error("Error:", error);
+    }
 
-    const responseData: IPromptResponse = await response.json();
-    console.log("responseData: ", responseData);
-
-    // Update the messages state with the assistant message
-    const assistantMessage: IMessage = {
-      from: "Assistant",
-      message: responseData?.choices[0]?.message?.content,
-      id: uuidv4(),
-    };
-    setMessages(messages => [...messages, assistantMessage]);
+    if (responseData) {
+      const assistantMessage: IMessage = {
+        from: "Assistant",
+        message: responseData?.choices[0]?.message?.content,
+        id: uuidv4(),
+      };
+      setMessages(messages => [...messages, assistantMessage]);
+    }
   };
+
   return (
-    <div className="col-start-2 col-end-5 py-14">
+    <div className="h-full flex flex-col col-start-2 col-end-5 py-14">
       <ChatMessages messages={messages} />
       <ChatForm onPromptSubmit={handleFormSubmit} />
     </div>
