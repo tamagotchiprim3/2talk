@@ -6,7 +6,7 @@ const ChatPage: React.FC<{}> = ({}) => {
   return (
     <div className="w-full h-full grid grid-cols-3 grid-rows-1 bg-teal-950">
       <Leftbar />
-      <Chat />
+      <Chat key={""} />
       <Rightbar />
     </div>
   );

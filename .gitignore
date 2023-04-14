@@ -13,7 +13,8 @@ public\constants\api-keys.consts.ts
 # next.js
 /.next/
 /out/
-
+.env
+.env/local
 # production
 /build
 

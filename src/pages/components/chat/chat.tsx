@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { API_KEY } from "../../../../public/constants/api-keys.consts";
 import { IMessage } from "../../../../public/interfaces/message.interface";
 import { IChatReqBody } from "../../../../public/interfaces/request-body.interface";
 import { IPromptResponse } from "../../../../public/interfaces/response.interfaces";
@@ -12,6 +11,7 @@ const Chat: React.FC<{}> = ({}) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
 
   const handleFormSubmit = async (data: IMessage) => {
+    console.log(process.env.REACT_APP_API_KEY);
     // Update the messages state with the user message
     const userMessage: IMessage = {
       from: "Me",
@@ -36,7 +36,7 @@ const Chat: React.FC<{}> = ({}) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
-          Authorization: `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${process.env.NOW_GITHUB_COMMIT_SHA}`,
         },
         body: JSON.stringify(requestBody),
       });
@@ -62,5 +62,4 @@ const Chat: React.FC<{}> = ({}) => {
     </div>
   );
 };
-
 export default Chat;
