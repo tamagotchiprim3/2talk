@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { IMessage } from "../../../../../public/interfaces/message.interface";
+import { IMessage } from "../../../../public/interfaces/message.interface";
 
 interface Props {
   onPromptSubmit: Function;
