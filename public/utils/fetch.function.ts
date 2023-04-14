@@ -1,4 +1,4 @@
-import { API_KEY } from "../constants/api-key.conts";
+import { API_KEY } from "../constants/api-keys.consts";
 import { IChatReqBody } from "../interfaces/request-body.interface";
 import { IPromptResponse } from "../interfaces/response.interfaces";
 

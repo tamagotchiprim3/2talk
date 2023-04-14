@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { API_KEY } from "../../../../../public/constants/api-key.conts";
-import { IMessage } from "../../../../../public/interfaces/message.interface";
-import { IChatReqBody } from "../../../../../public/interfaces/request-body.interface";
-import { IPromptResponse } from "../../../../../public/interfaces/response.interfaces";
+
+import { API_KEY } from "../../../../public/constants/api-keys.consts";
+import { IMessage } from "../../../../public/interfaces/message.interface";
+import { IChatReqBody } from "../../../../public/interfaces/request-body.interface";
+import { IPromptResponse } from "../../../../public/interfaces/response.interfaces";
 import ChatForm from "./chat-form";
 import ChatMessages from "./chat-messages";
 
@@ -44,7 +45,7 @@ const Chat: React.FC<{}> = ({}) => {
       console.error("Error:", error);
     }
 
-    if (responseData) {
+    if (responseData && responseData?.choices?.length > 0) {
       const assistantMessage: IMessage = {
         from: "Assistant",
         message: responseData?.choices[0]?.message?.content,
@@ -55,7 +56,7 @@ const Chat: React.FC<{}> = ({}) => {
   };
 
   return (
-    <div className="h-full flex flex-col col-start-2 col-end-5 py-14">
+    <div className="h-full flex flex-col col-start-2 col-end-3 py-14">
       <ChatMessages messages={messages} />
       <ChatForm onPromptSubmit={handleFormSubmit} />
     </div>
