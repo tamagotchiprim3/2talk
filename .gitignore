@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+public\constants\api-keys.consts.ts
+
 # testing
 /coverage
 
