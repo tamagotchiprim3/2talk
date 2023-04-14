@@ -1,4 +1,4 @@
-import { IMessage } from "../../../../../public/interfaces/message.interface";
+import { IMessage } from "../../../../public/interfaces/message.interface";
 
 interface Props {
   messages: IMessage[] | null;
