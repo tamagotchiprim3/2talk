@@ -15,3 +15,19 @@ body {
   width: 100%;
 }
 
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: none;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: rgb(17 94 89);
+    border-radius: 100vh;
+  }
+}
+

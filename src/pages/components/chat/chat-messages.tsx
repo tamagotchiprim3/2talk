@@ -7,7 +7,7 @@ interface Props {
 const ChatMessages: React.FC<Props> = ({ messages }) => {
   return (
     <div className="h-3/4  flex flex-col justify-end ">
-      <div className="overflow-auto flex flex-col">
+      <div className="overflow-auto flex flex-col scrollbar">
         {messages
           ? messages.map((mssg: IMessage) =>
               mssg.from === "Me" ? (
