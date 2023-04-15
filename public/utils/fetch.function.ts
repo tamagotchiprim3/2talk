@@ -10,7 +10,7 @@ const fetchWithKey = async (
     headers: {
       ...opt?.headers,
       "Content-Type": "application/json;charset=utf-8",
-      Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_REACT_APP_API_KEY}`,
     },
     body: JSON.stringify(opt?.body),
   });
