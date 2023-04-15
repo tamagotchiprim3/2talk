@@ -18,12 +18,14 @@ const ChatForm: React.FC<Props> = ({ onPromptSubmit }) => {
 
   function promptSubmit(e: any) {
     e.preventDefault();
-    onPromptSubmit({
-      from: "Me",
-      message: form?.message,
-      id: uuidv4(),
-    });
-    setForm(null);
+    if (form?.message) {
+      onPromptSubmit({
+        from: "Me",
+        message: form?.message,
+        id: uuidv4(),
+      });
+      setForm(null);
+    }
   }
 
   return (

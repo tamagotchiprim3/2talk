@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { IMessage } from "../../../../public/interfaces/message.interface";
@@ -10,14 +10,25 @@ import ChatMessages from "./chat-messages";
 const Chat: React.FC<{}> = ({}) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
 
+  useEffect(() => {
+    const localMessages = localStorage.getItem("messages");
+    if (localMessages) {
+      setMessages(JSON.parse(localMessages));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (messages.length !== 0) localStorage.setItem("messages", JSON.stringify(messages));
+  }, [messages]);
+
   const handleFormSubmit = async (data: IMessage) => {
-    console.log(process.env.REACT_APP_API_KEY);
     // Update the messages state with the user message
     const userMessage: IMessage = {
       from: "Me",
       message: data.message,
       id: uuidv4(),
     };
+    localStorage.setItem("messages", JSON.stringify([...messages, userMessage]));
     setMessages(messages => [...messages, userMessage]);
 
     // Call the API to get the response from the assistant
@@ -51,6 +62,7 @@ const Chat: React.FC<{}> = ({}) => {
         message: responseData?.choices[0]?.message?.content,
         id: uuidv4(),
       };
+      localStorage.setItem("messages", JSON.stringify([...messages, assistantMessage]));
       setMessages(messages => [...messages, assistantMessage]);
     }
   };
