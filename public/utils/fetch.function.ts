@@ -1,4 +1,3 @@
-import { API_KEY } from "../constants/api-keys.consts";
 import { IChatReqBody } from "../interfaces/request-body.interface";
 import { IPromptResponse } from "../interfaces/response.interfaces";
 
@@ -11,7 +10,7 @@ const fetchWithKey = async (
     headers: {
       ...opt?.headers,
       "Content-Type": "application/json;charset=utf-8",
-      Authorization: `Bearer ${API_KEY}`,
+      Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
     },
     body: JSON.stringify(opt?.body),
   });
