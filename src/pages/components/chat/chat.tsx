@@ -36,7 +36,7 @@ const Chat: React.FC<{}> = ({}) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
-          Authorization: `Bearer ${process.env.NOW_GITHUB_COMMIT_SHA}`,
+          Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
         },
         body: JSON.stringify(requestBody),
       });
