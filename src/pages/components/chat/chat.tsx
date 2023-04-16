@@ -9,6 +9,7 @@ import ChatMessages from "./chat-messages";
 
 const Chat: React.FC<{}> = ({}) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
+  const [reqStatus, setReqStatus] = useState<string>("");
 
   useEffect(() => {
     const localMessages = localStorage.getItem("messages");
@@ -30,6 +31,7 @@ const Chat: React.FC<{}> = ({}) => {
     };
     localStorage.setItem("messages", JSON.stringify([...messages, userMessage]));
     setMessages(messages => [...messages, userMessage]);
+    setReqStatus("pending");
 
     // Call the API to get the response from the assistant
     const requestBody: IChatReqBody = {
@@ -51,6 +53,7 @@ const Chat: React.FC<{}> = ({}) => {
         },
         body: JSON.stringify(requestBody),
       });
+      setReqStatus("success");
       responseData = await res.json();
     } catch (error) {
       console.error("Error:", error);
@@ -68,8 +71,8 @@ const Chat: React.FC<{}> = ({}) => {
   };
 
   return (
-    <div className="h-full flex flex-col col-start-2 col-end-3 py-14">
-      <ChatMessages messages={messages} />
+    <div className="h-full flex flex-col col-start-2 col-end-4 py-14 gap-3">
+      <ChatMessages messages={messages} reqStatus={reqStatus} />
       <ChatForm onPromptSubmit={handleFormSubmit} />
     </div>
   );
