@@ -39,7 +39,7 @@ const ChatForm: React.FC<Props> = ({ onPromptSubmit }) => {
         />
         <button
           type="submit"
-          className="transition bg-teal-700 w-1/6 rounded-lg hover:bg-teal-400 hover:scale-110 hover:shadow-inner"
+          className="transition ease-in-out bg-teal-700 w-1/6 rounded-lg hover:bg-teal-400 hover:scale-110 hover:shadow-inner"
         >
           Submit
         </button>
