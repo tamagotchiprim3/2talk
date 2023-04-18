@@ -5,7 +5,6 @@ import { IMessage } from "../../../../public/interfaces/message.interface";
 import { IChatReqBody } from "../../../../public/interfaces/request-body.interface";
 import { IPromptResponse } from "../../../../public/interfaces/response.interfaces";
 import ChatForm from "./chat-form";
-import ChatMessages from "./chat-messages";
 
 const Chat: React.FC<{}> = ({}) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
@@ -71,8 +70,8 @@ const Chat: React.FC<{}> = ({}) => {
   };
 
   return (
-    <div className="h-full flex flex-col col-start-2 col-end-4 py-14 gap-3">
-      <ChatMessages messages={messages} reqStatus={reqStatus} />
+    <div className="h-full flex flex-col bg-teal-950 gap-3">
+      {/* <ChatMessages messages={messages} reqStatus={reqStatus} /> */}
       <ChatForm onPromptSubmit={handleFormSubmit} />
     </div>
   );

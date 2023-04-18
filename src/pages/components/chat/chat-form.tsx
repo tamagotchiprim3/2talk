@@ -1,5 +1,7 @@
-import { useState } from "react";
+import Image from "next/image";
+import { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import sendMessage from "../../../../public/icons/send-icon.svg";
 import { IMessage } from "../../../../public/interfaces/message.interface";
 
 interface Props {
@@ -8,9 +10,14 @@ interface Props {
 
 const ChatForm: React.FC<Props> = ({ onPromptSubmit }) => {
   const [form, setForm] = useState<IMessage | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleChange = (e: any) => {
     e.preventDefault();
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${e.target.scrollHeight - 16}px`;
+    }
     setForm({
       message: e.target.value,
     });
@@ -29,19 +36,25 @@ const ChatForm: React.FC<Props> = ({ onPromptSubmit }) => {
   }
 
   return (
-    <div className="bg-teal-900 h-1/4 rounded-3xl p-6 shadow-2xl">
-      <form onSubmit={promptSubmit} className="w-full h-full flex gap-3">
+    <div className="bg-teal-900  rounded-2xl m-2 p-2  shadow-2xl">
+      <form onSubmit={promptSubmit} className=" flex gap-2">
         <textarea
           id="promptInput"
+          ref={textareaRef}
+          rows={1}
           value={form?.message ? form.message : ""}
           onChange={handleChange}
-          className="text-white bg-teal-900 block w-full h-full resize-none flex-1 rounded-lg p-3 hover:border-none hover:outline-none focus:border-none focus:outline-none scrollbar"
+          className="text-white bg-teal-900 w-full block resize-none  rounded-lg p-2 hover:border-none hover:outline-none focus:border-none focus:outline-none overflow-hidden"
         />
         <button
           type="submit"
-          className="transition ease-in-out bg-teal-700 w-1/6 rounded-lg hover:bg-teal-400 hover:scale-110 hover:shadow-inner"
+          className={
+            form?.message
+              ? "bg-teal-400 scale-110 shadow-inner transition ease-in-out   rounded-full p-3"
+              : "transition ease-in-out bg-teal-700  rounded-full p-3"
+          }
         >
-          Submit
+          <Image src={sendMessage} alt="" width={20} height={20} />
         </button>
       </form>
     </div>
