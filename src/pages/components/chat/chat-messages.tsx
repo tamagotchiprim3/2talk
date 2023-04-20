@@ -13,28 +13,28 @@ const ChatMessages: React.FC<Props> = ({ messages, reqStatus }) => {
   }, [messages]);
 
   return (
-    <div className="overflow-y-auto overflow-x-hidden flex-1  flex flex-col justify-end rounded-lg ">
+    <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-end rounded-lg ">
       <div
         ref={listRef}
-        className="overflow-y-auto overflow-x-hidden flex flex-col rounded-lg p-2 scrollbar"
+        className="overflow-y-auto overflow-x-hidden flex flex-col rounded-lg px-2 scrollbar"
       >
         {messages
           ? messages.map((mssg: IMessage) =>
-              mssg.from === "Me" ? (
+              mssg.role === "user" ? (
                 <div
                   key={mssg.id}
-                  className="self-end  flex-1 bg-teal-500 p-3 my-1 rounded-3xl max-w-xs sm:max-w-sm md:max-w-md lg:max-w-sm 2xl:max-w-md break-words animate-completionPopup"
+                  className="self-end flex-1 bg-teal-500 p-3 my-1 rounded-3xl max-w-xs sm:max-w-sm md:max-w-md lg:max-w-sm 2xl:max-w-md break-words animate-completionPopup"
                 >
-                  <div className="text-teal-100 font-bold text-right">{mssg.from}</div>
-                  <div className="text-justify">{mssg.message}</div>
+                  <div className="text-teal-100 font-bold text-right">User</div>
+                  <div className="text-justify">{mssg.content}</div>
                 </div>
               ) : (
                 <div
                   key={mssg.id}
                   className="self-start flex-1 text-white bg-teal-700 p-3 my-1 rounded-3xl max-w-xs sm:max-w-sm md:max-w-md lg:max-w-sm 2xl:max-w-md break-words animate-replyPopup"
                 >
-                  <div className="text-teal-300 font-bold">{mssg.from}</div>
-                  <div className="text-justify">{mssg.message}</div>
+                  <div className="text-teal-300 font-bold">Assistant</div>
+                  <div className="text-justify">{mssg.content}</div>
                 </div>
               )
             )

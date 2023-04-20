@@ -6,7 +6,7 @@ import "tailwindcss/tailwind.css";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Component {...pageProps} className="w-full h-full " />;
+      <Component {...pageProps} className="w-full h-full overflow-hidden" />
       <Analytics />
     </>
   );

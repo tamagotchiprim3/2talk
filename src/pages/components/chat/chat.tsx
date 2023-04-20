@@ -25,8 +25,8 @@ const Chat: React.FC<{}> = ({}) => {
   const handleFormSubmit = async (data: IMessage) => {
     // Update the messages state with the user message
     const userMessage: IMessage = {
-      from: "Me",
-      message: data.message,
+      role: data.role,
+      content: data.content,
       id: uuidv4(),
     };
     localStorage.setItem("messages", JSON.stringify([...messages, userMessage]));
@@ -36,12 +36,12 @@ const Chat: React.FC<{}> = ({}) => {
     // Call the API to get the response from the assistant
     const requestBody: IChatReqBody = {
       model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "user",
-          content: data.message,
-        },
-      ],
+      messages: [...messages, userMessage].map((msg: { role: any; content: any }) => {
+        return {
+          role: msg.role,
+          content: msg.content,
+        };
+      }),
     };
     let responseData: IPromptResponse | null = null;
     try {
@@ -61,8 +61,8 @@ const Chat: React.FC<{}> = ({}) => {
 
     if (responseData && responseData?.choices?.length > 0) {
       const assistantMessage: IMessage = {
-        from: "Assistant",
-        message: responseData?.choices[0]?.message?.content,
+        role: "assistant",
+        content: responseData?.choices[0]?.message?.content,
         id: uuidv4(),
       };
       localStorage.setItem("messages", JSON.stringify([...messages, assistantMessage]));
@@ -71,7 +71,7 @@ const Chat: React.FC<{}> = ({}) => {
   };
 
   return (
-    <div className="h-full w-full flex flex-col bg-teal-950 overflow-hidden lg:col-start-1 lg:col-end-4 xl:col-start-2 xl:col-end-4">
+    <div className="h-full w-full flex flex-col overflow-hidden bg-teal-950  lg:col-start-1 lg:col-end-4 xl:col-start-2 xl:col-end-4">
       <ChatMessages messages={messages} reqStatus={reqStatus} />
       <ChatForm onPromptSubmit={handleFormSubmit} />
     </div>

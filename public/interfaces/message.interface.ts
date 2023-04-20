@@ -1,5 +1,5 @@
 export interface IMessage {
-  from?: string;
-  message: any;
-  id?: string;
+  role: string;
+  content: any;
+  id: string;
 }
