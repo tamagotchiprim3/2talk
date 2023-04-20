@@ -13,7 +13,7 @@ const ChatMessages: React.FC<Props> = ({ messages, reqStatus }) => {
   }, [messages]);
 
   return (
-    <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-end rounded-lg ">
+    <div className="overflow-y-auto overflow-x-hidden flex-1 flex flex-col justify-end rounded-lg ">
       <div
         ref={listRef}
         className="overflow-y-auto overflow-x-hidden flex flex-col rounded-lg px-2 scrollbar"
