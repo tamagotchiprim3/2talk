@@ -23,7 +23,7 @@ const ChatForm: React.FC<Props> = ({ onPromptSubmit }) => {
     });
   };
 
-  function promptSubmit(e: any) {
+  function handleSubmit(e: any) {
     e.preventDefault();
     if (form?.message) {
       onPromptSubmit({
@@ -35,23 +35,30 @@ const ChatForm: React.FC<Props> = ({ onPromptSubmit }) => {
     }
   }
 
+  const handleKeypress = (e: any) => {
+    if (e.keyCode === 13) {
+      handleSubmit(e);
+    }
+  };
+
   return (
-    <div className="bg-teal-900  rounded-2xl m-2 p-2  shadow-2xl">
-      <form onSubmit={promptSubmit} className=" flex gap-2">
+    <div className="bg-teal-900  rounded-2xl m-2 p-2  shadow-2xl max-h-96">
+      <form onSubmit={handleSubmit} className=" flex ">
         <textarea
           id="promptInput"
           ref={textareaRef}
           rows={1}
           value={form?.message ? form.message : ""}
           onChange={handleChange}
-          className="text-white bg-teal-900 w-full block resize-none  rounded-lg p-2 hover:border-none hover:outline-none focus:border-none focus:outline-none overflow-hidden"
+          onKeyDown={handleKeypress}
+          className="text-white bg-teal-900 w-full block resize-none px-2  rounded-lg  hover:border-none hover:outline-none focus:border-none focus:outline-none max-h-60 blank-scrollbar"
         />
         <button
           type="submit"
           className={
             form?.message
-              ? "bg-teal-400 scale-110 shadow-inner transition ease-in-out   rounded-full p-3"
-              : "transition ease-in-out bg-teal-700  rounded-full p-3"
+              ? "bg-teal-400 scale-110 shadow-inner transition ease-in-out h-11 w-11  rounded-full p-3"
+              : "transition ease-in-out bg-teal-700  rounded-full p-3 h-11 w-11"
           }
         >
           <Image src={sendMessage} alt="" width={20} height={20} />

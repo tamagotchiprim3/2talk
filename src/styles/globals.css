@@ -17,7 +17,7 @@ body {
 
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
   }
 
   .scrollbar::-webkit-scrollbar-track {
@@ -27,6 +27,20 @@ body {
 
   .scrollbar::-webkit-scrollbar-thumb {
     background: rgb(17 94 89);
+    border-radius: 100vh;
+  }
+
+  .blank-scrollbar::-webkit-scrollbar {
+    width: 1px;
+  }
+
+  .blank-scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: none;
+  }
+
+  .blank-scrollbar::-webkit-scrollbar-thumb {
+    background: none;
     border-radius: 100vh;
   }
 
