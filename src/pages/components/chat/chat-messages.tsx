@@ -23,7 +23,7 @@ const ChatMessages: React.FC<Props> = ({ messages, reqStatus }) => {
               mssg.from === "Me" ? (
                 <div
                   key={mssg.id}
-                  className="self-end  flex-1 bg-teal-500 p-3 my-1 rounded-3xl max-w-xs break-words animate-completionPopup"
+                  className="self-end  flex-1 bg-teal-500 p-3 my-1 rounded-3xl max-w-xs sm:max-w-sm md:max-w-md lg:max-w-sm 2xl:max-w-md break-words animate-completionPopup"
                 >
                   <div className="text-teal-100 font-bold text-right">{mssg.from}</div>
                   <div className="text-justify">{mssg.message}</div>
@@ -31,7 +31,7 @@ const ChatMessages: React.FC<Props> = ({ messages, reqStatus }) => {
               ) : (
                 <div
                   key={mssg.id}
-                  className="self-start flex-1 text-white bg-teal-700 p-3 my-1 rounded-3xl max-w-xs break-words animate-replyPopup"
+                  className="self-start flex-1 text-white bg-teal-700 p-3 my-1 rounded-3xl max-w-xs sm:max-w-sm md:max-w-md lg:max-w-sm 2xl:max-w-md break-words animate-replyPopup"
                 >
                   <div className="text-teal-300 font-bold">{mssg.from}</div>
                   <div className="text-justify">{mssg.message}</div>

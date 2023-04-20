@@ -71,7 +71,7 @@ const Chat: React.FC<{}> = ({}) => {
   };
 
   return (
-    <div className="h-full w-full flex flex-col bg-teal-950 overflow-hidden">
+    <div className="h-full w-full flex flex-col bg-teal-950 overflow-hidden lg:col-start-1 lg:col-end-4 xl:col-start-2 xl:col-end-4">
       <ChatMessages messages={messages} reqStatus={reqStatus} />
       <ChatForm onPromptSubmit={handleFormSubmit} />
     </div>
