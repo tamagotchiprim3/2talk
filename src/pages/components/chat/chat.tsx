@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+import { IChat } from "../../../../public/interfaces/chat.interface";
 import { IMessage } from "../../../../public/interfaces/message.interface";
 import { IChatReqBody } from "../../../../public/interfaces/request-body.interface";
 import { IPromptResponse } from "../../../../public/interfaces/response.interfaces";
 import ChatForm from "./chat-form";
 import ChatMessages from "./chat-messages";
 
-const Chat: React.FC<{}> = ({}) => {
+const Chat: React.FC<{ chat: IChat | null; onCreateChat: any; onUpdateChat: any }> = ({
+  chat,
+  onCreateChat,
+  onUpdateChat,
+}) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [reqStatus, setReqStatus] = useState<string>("");
 
@@ -29,6 +34,7 @@ const Chat: React.FC<{}> = ({}) => {
       content: data.content,
       id: uuidv4(),
     };
+
     localStorage.setItem("messages", JSON.stringify([...messages, userMessage]));
     setMessages(messages => [...messages, userMessage]);
     setReqStatus("pending");
