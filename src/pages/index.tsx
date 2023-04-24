@@ -1,5 +1,8 @@
 import { useReducer } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { chatMock } from "../../public/constants/chat-mock.const";
 import { IChat } from "../../public/interfaces/chat.interface";
+import { IMessage } from "../../public/interfaces/message.interface";
 import Adbar from "./components/adbar/adbar";
 import Chat from "./components/chat/chat";
 import ChatList from "./components/chats-list/chats-list";
@@ -21,6 +24,22 @@ const chatsReducer = (chats: IChat[], action: IDispatch) => {
         return chtClone;
       });
     }
+    case "create": {
+      return [...chats, chatMock(false, uuidv4())];
+    }
+    case "update": {
+      return chats.map((cht: IChat) => {
+        if (cht.id === action.payload.chatId) {
+          const chatCopy: IChat = { ...cht };
+          if (!chatCopy.messages.find((msg: IMessage) => msg.id === action.payload.msg.id)) {
+            chatCopy.messages.push(action.payload.msg);
+          }
+          return chatCopy;
+        } else {
+          return cht;
+        }
+      });
+    }
     default: {
       throw Error("Unknown action: " + action.type);
     }
@@ -28,7 +47,7 @@ const chatsReducer = (chats: IChat[], action: IDispatch) => {
 };
 
 const ChatPage: React.FC<{}> = ({}) => {
-  const [chats, dispatch] = useReducer(chatsReducer, []);
+  const [chats, dispatch] = useReducer(chatsReducer, [chatMock(true, uuidv4())]);
 
   const handleDeleteChat = (chatId: string) => {
     dispatch({
@@ -43,25 +62,32 @@ const ChatPage: React.FC<{}> = ({}) => {
     });
   };
 
-  const handleCreateChat = (chat: IChat) => {
+  const handleCreateChat = () => {
     dispatch({
       type: "create",
-      payload: chat,
+      payload: null,
     });
   };
 
-  const handleUpdateChat = (chat: IChat) => {
+  const handleUpdateChat = (chatId: string, msg: IMessage) => {
     dispatch({
       type: "update",
-      payload: chat,
+      payload: {
+        chatId: chatId,
+        msg: msg,
+      },
     });
   };
   return (
     <div className="w-full h-full bg-teal-950 lg:grid lg:grid-cols-4 xl:grig xl:grid-cols-4">
-      <ChatList chats={chats} onDeleteChat={handleDeleteChat} onSelectChat={handleSelectChat} />
+      <ChatList
+        chats={chats}
+        onDeleteChat={handleDeleteChat}
+        onSelectChat={handleSelectChat}
+        onCreateChat={handleCreateChat}
+      />
       <Chat
         chat={chats.find(cht => cht.isSelected === true) || null}
-        onCreateChat={handleCreateChat}
         onUpdateChat={handleUpdateChat}
       />
       <Adbar />

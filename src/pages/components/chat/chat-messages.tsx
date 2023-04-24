@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { IMessage } from "../../../../public/interfaces/message.interface";
 
 interface Props {
-  messages: IMessage[] | null;
+  messages?: IMessage[];
   reqStatus: string;
 }
 
@@ -20,7 +20,7 @@ const ChatMessages: React.FC<Props> = ({ messages, reqStatus }) => {
       >
         {messages
           ? messages.map((mssg: IMessage) =>
-              mssg.role === "user" ? (
+              mssg?.role === "user" ? (
                 <div
                   key={mssg.id}
                   className="self-end flex-1 bg-teal-500 p-3 my-1 rounded-3xl max-w-xs sm:max-w-sm md:max-w-md lg:max-w-sm 2xl:max-w-md break-words animate-completionPopup"
