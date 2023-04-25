@@ -1,11 +1,11 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { chatMock } from "../../public/constants/chat-mock.const";
 import { IChat } from "../../public/interfaces/chat.interface";
 import { IMessage } from "../../public/interfaces/message.interface";
 import Adbar from "./components/adbar/adbar";
 import Chat from "./components/chat/chat";
-import ChatList from "./components/chats-list/chats-list";
+import ChatsList from "./components/chats-list/chats-list";
 
 interface IDispatch {
   type: string;
@@ -48,6 +48,7 @@ const chatsReducer = (chats: IChat[], action: IDispatch) => {
 
 const ChatPage: React.FC<{}> = ({}) => {
   const [chats, dispatch] = useReducer(chatsReducer, [chatMock(true, uuidv4())]);
+  const [isChatsList, setIsChatsList] = useState<boolean>(true);
 
   const handleDeleteChat = (chatId: string) => {
     dispatch({
@@ -80,17 +81,27 @@ const ChatPage: React.FC<{}> = ({}) => {
   };
   return (
     <div className="w-full h-full bg-teal-950 lg:grid lg:grid-cols-4 xl:grig xl:grid-cols-4">
-      <ChatList
-        chats={chats}
-        onDeleteChat={handleDeleteChat}
-        onSelectChat={handleSelectChat}
-        onCreateChat={handleCreateChat}
-      />
-      <Chat
-        chat={chats.find(cht => cht.isSelected === true) || null}
-        onUpdateChat={handleUpdateChat}
-      />
-      <Adbar />
+      {isChatsList ? (
+        <div
+          className="h-full w-full
+        "
+        >
+          <ChatsList
+            chats={chats}
+            onDeleteChat={handleDeleteChat}
+            onSelectChat={handleSelectChat}
+            onCreateChat={handleCreateChat}
+          />
+        </div>
+      ) : (
+        <div>
+          <Chat
+            chat={chats.find(cht => cht.isSelected === true) || null}
+            onUpdateChat={handleUpdateChat}
+          />
+          <Adbar />
+        </div>
+      )}
     </div>
   );
 };
