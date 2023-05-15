@@ -8,9 +8,6 @@ const ChatsList: React.FC<{
   onSelectChat: any;
   onCreateChat: any;
 }> = ({ chats, onDeleteChat, onSelectChat, onCreateChat }) => {
-  // const renameChat = () => {
-  //   onRenameChat(chatId)
-  // }
   const deleteChat = (chatId: string) => {
     onDeleteChat(chatId);
   };
@@ -27,9 +24,9 @@ const ChatsList: React.FC<{
     <div className="h-full  flex flex-col ">
       <button
         onClick={() => createChat()}
-        className="w-full p-2  bg-teal-700 hover:shadow-inner hover:bg-teal-600 text-white transition-all ease-in-out duration-500"
+        className="w-full h-12 p-2 bg-teal-700 hover:shadow-inner hover:bg-teal-600 text-white transition-all ease-in-out duration-500"
       >
-        <div className=" flex justify-center ">
+        <div className=" flex justify-center">
           <div>Create chat </div>
           <Image src={createIcon} alt="" width={25} height={25} />
         </div>
@@ -46,12 +43,6 @@ const ChatsList: React.FC<{
                 <div className="rounded-xl mx-2 flex justify-center items-center h-24">
                   {cht.name}
                 </div>
-                <button
-                  onClick={() => deleteChat(cht.id)}
-                  className="h-10 w-10 flex justify-center items-center"
-                >
-                  <Image src={deleteIcon} alt="" width={25} height={25} />
-                </button>
                 <button
                   onClick={() => deleteChat(cht.id)}
                   className="h-10 w-10 flex justify-center items-center"

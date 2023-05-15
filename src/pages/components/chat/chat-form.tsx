@@ -15,7 +15,7 @@ const ChatForm: React.FC<Props> = ({ onPromptSubmit }) => {
     e.preventDefault();
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${e.target.scrollHeight - 16}px`;
+      textareaRef.current.style.height = `${e.target.scrollHeight}px`;
     }
     setForm({
       content: e.target.value,
@@ -41,8 +41,8 @@ const ChatForm: React.FC<Props> = ({ onPromptSubmit }) => {
   };
 
   return (
-    <div className="bg-teal-900  rounded-2xl m-2 p-2  shadow-2xl max-h-96">
-      <form onSubmit={handleSubmit} className=" flex ">
+    <div className="bg-teal-900  rounded-2xl m-2 pl-2 p-1  shadow-2xl max-h-96">
+      <form onSubmit={handleSubmit} className="flex h-full w-full">
         <textarea
           id="promptInput"
           ref={textareaRef}
@@ -50,17 +50,15 @@ const ChatForm: React.FC<Props> = ({ onPromptSubmit }) => {
           value={form?.content ? form.content : ""}
           onChange={handleChange}
           onKeyDown={handleKeypress}
-          className="text-white bg-teal-900 w-full block resize-none px-2  rounded-lg  hover:border-none hover:outline-none focus:border-none focus:outline-none max-h-60 blank-scrollbar"
+          className="text-white bg-teal-900 w-full  block resize-none px-2 rounded-lg  hover:border-none hover:outline-none focus:border-none focus:outline-none blank-scrollbar"
         />
         <button
           type="submit"
           className={
-            form?.content
-              ? "bg-teal-400 scale-110 shadow-inner transition ease-in-out h-11 w-11  rounded-full p-3"
-              : "transition ease-in-out bg-teal-700  rounded-full p-3 h-11 w-11"
+            "bg-teal-700 shadow-inner h-7 w-7 rounded-full p-3 flex justify-center items-center"
           }
         >
-          <Image src={sendMessage} alt="" width={20} height={20} />
+          <Image src={sendMessage} alt="" width={12} height={12} className="h-3 w-3 max-w-none" />
         </button>
       </form>
     </div>

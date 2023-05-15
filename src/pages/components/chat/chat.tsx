@@ -7,8 +7,13 @@ import { IChatReqBody } from "../../../../public/interfaces/request-body.interfa
 import { IPromptResponse } from "../../../../public/interfaces/response.interfaces";
 import ChatForm from "./chat-form";
 import ChatMessages from "./chat-messages";
+import MobileChatHeader from "./mobile-chat-header";
 
-const Chat: React.FC<{ chat: IChat | null; onUpdateChat: any }> = ({ chat, onUpdateChat }) => {
+const Chat: React.FC<{ chat: IChat | null; onUpdateChat: any; onBackToList: any }> = ({
+  chat,
+  onUpdateChat,
+  onBackToList,
+}) => {
   const [reqStatus, setReqStatus] = useState<string>("");
 
   // useEffect(() => {
@@ -76,8 +81,13 @@ const Chat: React.FC<{ chat: IChat | null; onUpdateChat: any }> = ({ chat, onUpd
     }
   };
 
+  const handleBackToList: any = () => {
+    onBackToList();
+  };
+
   return (
     <div className="h-full w-full flex flex-col overflow-hidden bg-teal-950  lg:col-start-1 lg:col-end-4 xl:col-start-2 xl:col-end-4">
+      <MobileChatHeader name={chat?.name || ""} onBackToList={handleBackToList} />
       <ChatMessages messages={chat?.messages} reqStatus={reqStatus} />
       <ChatForm onPromptSubmit={handleFormSubmit} />
     </div>

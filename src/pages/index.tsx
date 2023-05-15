@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { chatMock } from "../../public/constants/chat-mock.const";
 import { IChat } from "../../public/interfaces/chat.interface";
@@ -27,6 +27,14 @@ const chatsReducer = (chats: IChat[], action: IDispatch) => {
     case "create": {
       return [...chats, chatMock(false, uuidv4())];
     }
+    case "back": {
+      return chats.map(cht => {
+        if (cht.isSelected === true) {
+          cht.isSelected = false;
+        }
+        return cht;
+      });
+    }
     case "update": {
       return chats.map((cht: IChat) => {
         if (cht.id === action.payload.chatId) {
@@ -46,9 +54,8 @@ const chatsReducer = (chats: IChat[], action: IDispatch) => {
   }
 };
 
-const ChatPage: React.FC<{}> = ({}) => {
+const ChatPage: React.FC<{}> = () => {
   const [chats, dispatch] = useReducer(chatsReducer, [chatMock(true, uuidv4())]);
-  const [isChatsList, setIsChatsList] = useState<boolean>(true);
 
   const handleDeleteChat = (chatId: string) => {
     dispatch({
@@ -79,9 +86,17 @@ const ChatPage: React.FC<{}> = ({}) => {
       },
     });
   };
+
+  const handleBackToList = () => {
+    dispatch({
+      type: "back",
+      payload: null,
+    });
+  };
+
   return (
     <div className="w-full h-full bg-teal-950 lg:grid lg:grid-cols-4 xl:grig xl:grid-cols-4">
-      {isChatsList ? (
+      {!chats.find(cht => cht.isSelected === true) ? (
         <div
           className="h-full w-full
         "
@@ -94,10 +109,11 @@ const ChatPage: React.FC<{}> = ({}) => {
           />
         </div>
       ) : (
-        <div>
+        <div className="h-full w-full ">
           <Chat
             chat={chats.find(cht => cht.isSelected === true) || null}
             onUpdateChat={handleUpdateChat}
+            onBackToList={handleBackToList}
           />
           <Adbar />
         </div>
