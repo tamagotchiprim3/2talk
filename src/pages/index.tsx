@@ -6,6 +6,7 @@ import { IMessage } from "../../public/interfaces/message.interface";
 import Adbar from "./components/adbar/adbar";
 import Chat from "./components/chat/chat";
 import ChatsList from "./components/chats-list/chats-list";
+import ChatModal from "./components/modal/chat-modal";
 
 interface IDispatch {
   type: string;
@@ -94,31 +95,42 @@ const ChatPage: React.FC<{}> = () => {
     });
   };
 
+  const handleCloseModal = () => {};
+
+  const handleChangeName = () => {};
+
   return (
-    <div className="w-full h-full bg-teal-950 lg:grid lg:grid-cols-4 xl:grig xl:grid-cols-4">
-      {!chats.find(cht => cht.isSelected === true) ? (
-        <div
-          className="h-full w-full
+    <>
+      <ChatModal
+        name={chats.find(cht => cht.isSelected === true)?.name || null}
+        onCloseModal={handleCloseModal}
+        onChangeName={handleChangeName}
+      />
+      <div className="w-full h-full bg-teal-950 lg:grid lg:grid-cols-4 xl:grig xl:grid-cols-4">
+        {!chats.find(cht => cht.isSelected === true) ? (
+          <div
+            className="h-full w-full
         "
-        >
-          <ChatsList
-            chats={chats}
-            onDeleteChat={handleDeleteChat}
-            onSelectChat={handleSelectChat}
-            onCreateChat={handleCreateChat}
-          />
-        </div>
-      ) : (
-        <div className="h-full w-full ">
-          <Chat
-            chat={chats.find(cht => cht.isSelected === true) || null}
-            onUpdateChat={handleUpdateChat}
-            onBackToList={handleBackToList}
-          />
-          <Adbar />
-        </div>
-      )}
-    </div>
+          >
+            <ChatsList
+              chats={chats}
+              onDeleteChat={handleDeleteChat}
+              onSelectChat={handleSelectChat}
+              onCreateChat={handleCreateChat}
+            />
+          </div>
+        ) : (
+          <div className="h-full w-full ">
+            <Chat
+              chat={chats.find(cht => cht.isSelected === true) || null}
+              onUpdateChat={handleUpdateChat}
+              onBackToList={handleBackToList}
+            />
+            <Adbar />
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

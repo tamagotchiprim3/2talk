@@ -17,7 +17,9 @@ const MobileChatHeader: React.FC<{ name: string; onBackToList: any }> = ({
         <Image src={backIcon} alt="" className="w-3/4 h-3/4" />
       </button>
       <div className="flex justify-center items-center">
-        <span>{name}</span>
+        <button>
+          <span>{name}</span>
+        </button>
       </div>
     </div>
   );

@@ -50,7 +50,7 @@ const ChatForm: React.FC<Props> = ({ onPromptSubmit }) => {
           value={form?.content ? form.content : ""}
           onChange={handleChange}
           onKeyDown={handleKeypress}
-          className="text-white bg-teal-900 w-full  block resize-none px-2 rounded-lg  hover:border-none hover:outline-none focus:border-none focus:outline-none blank-scrollbar"
+          className="text-white bg-teal-900 w-full max-h-fullert  block resize-none px-2 rounded-lg  hover:border-none hover:outline-none focus:border-none focus:outline-none blank-scrollbar"
         />
         <button
           type="submit"
